@@ -1,48 +1,48 @@
-
 import { useState } from "react";
 import styled from "styled-components";
 
-const ToDo =() =>{
-const [todos, setTodos] = useState([]);
-const [task, setTask] = useState('');
+const ToDo = () => {
+  const [todos, setTodos] = useState([]);
+  const [task, setTask] = useState('');
+
+  const addTodo = () => {
+    if (task.trim() === '') return;
+    setTodos([...todos, task]);
+    setTask('');
+  };
+
+  const deleteTodo = (index) => {
+    const newTodos = todos.filter((_, i) => i !== index);
+    setTodos(newTodos);
+  };
+
+  return (
+    <Container>
+      <h1>To-Do List</h1>
+      <InputContainer>
+        <input 
+          type="text" 
+          value={task} 
+          onChange={(e) => setTask(e.target.value)} 
+          placeholder="Add a new task" 
+        />
+        <button onClick={addTodo}>Add</button>
+      </InputContainer>
+      <List>
+        {todos.map((todo, index) => (
+          <ListItem key={index}>
+            {todo}
+            <button onClick={() => deleteTodo(index)}>Delete</button>
+          </ListItem>
+        ))}
+      </List>
+    </Container>
+  );
 };
-
-const addTodo = () => {
-  if (task.trim() === '') return;
-  setTodos([...todos, task]);
-  setTask('');
-}
-
-const deleteTodo = (index) => {
-  const newTodos = todos.filter((_, i) => i !== index);
-  setTodos(newTodos);
-}
-
-return (
-  <Container>
-    <h1>To-Do List</h1>
-    <InputContainer>
-      <input 
-        type="text" 
-        value={task} 
-        onChange={(e) => setTask(e.target.value)} 
-        placeholder="Add a new task" 
-      />
-      <button onClick={addTodo}>Add</button>
-    </InputContainer>
-    <List>
-      {todos.map((todo, index) => (
-        <ListItem key={index}>
-          {todo}
-          <button onClick={() => deleteTodo(index)}>Delete</button>
-        </ListItem>
-      ))}
-    </List>
-  </Container>
-);
 
 export default ToDo;
 
+// Styled-components below
 const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
@@ -76,10 +76,12 @@ const InputContainer = styled.div`
     }
   }
 `;
+
 const List = styled.ul`
   list-style: none;
   padding: 0;
 `;
+
 const ListItem = styled.li`
   display: flex;
   justify-content: space-between;
