@@ -50,6 +50,7 @@ const Container = styled.div`
   background-color: #f9f9f9;
   border-radius: 8px;
 `;
+
 const InputContainer = styled.div`
   display: flex;
   gap: 10px;
